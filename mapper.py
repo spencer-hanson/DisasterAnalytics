@@ -12,6 +12,8 @@ for line in sys.stdin:
 
     # Set up counter tuple
     #Assumes Lat is first line entry and Long is 2nd line entry
-    latLong= words[0], words[1]
+    lat=float(words[0])
+    Long=float(words[1])
+    latLong= int(lat), int(Long)
     counterTup= latLong,1
     print(counterTup)
