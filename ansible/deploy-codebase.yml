@@ -1,5 +1,5 @@
 ---
-- hosts: bigd_test
+- hosts: bigd_code
   remote_user: ubuntu
   vars:
     home: /home/ubuntu

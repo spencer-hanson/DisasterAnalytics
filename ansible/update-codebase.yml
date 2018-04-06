@@ -1,5 +1,5 @@
 ---
-- hosts: bigd_test
+- hosts: bigd_code
   remote_user: ubuntu
   vars:
     home: /home/ubuntu
@@ -12,6 +12,8 @@
       accept_hostkey: yes
       force: yes
       version: release
+  - name: Install Dependencies
+    shell: "cd {{ home }}/app; python3 -m pip install -r requirements.txt"
   - name: Start website.py
-    shell: "cd {{home}}/app; nohup python3 website.py &"
+    shell: "pkill python3; cd {{ home }}/app; nohup python3 website.py &"
     poll: 0
