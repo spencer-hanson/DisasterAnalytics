@@ -27,7 +27,7 @@ circle {
     </style>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<!-- <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script> -->
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 
 <script src="http://d3js.org/d3.v2.js"></script>
@@ -54,17 +54,17 @@ expressed in Million Metric Tons Carbon Dioxide
 
 $(document).ready(function() {
 
-// $("#slider").slider({
-// 	value:2000,
-// 	min: 1971,
-// 	max: 2006,
-// 	step: 1,
-// 	slide: function( event, ui ) {
-// 		$("#year").val(ui.value);
-// 		redraw(ui.value.toString());
-// 	}
-// });
-// $("#year").val($("#slider").slider("value") );
+$("#slider").slider({
+	value:2000,
+	min: 1971,
+	max: 2006,
+	step: 1,
+	slide: function( event, ui ) {
+		$("#year").val(ui.value);
+		redraw(ui.value.toString());
+	}
+});
+$("#year").val($("#slider").slider("value") );
 
 var w = 1200;
 var h = 500;
