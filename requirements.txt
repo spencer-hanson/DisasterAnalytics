@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 searchtweets
 ansible
+=======
+pip install searchtweets
+pip install cassandra-driver
+>>>>>>> dbb6f68f73c6547009ca5754b9f54bd0a83c0974
