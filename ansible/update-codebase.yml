@@ -1,0 +1,19 @@
+---
+- hosts: bigd_code
+  remote_user: ubuntu
+  vars:
+    home: /home/ubuntu
+  tasks:
+  - name: Deploy files from GitHub
+    git:
+      repo: "ssh://git@github.com/CUBigDataClass/DisasterAnalytics"
+      dest: "{{ home }}/app"
+      key_file: "{{ home }}/.ssh/da_deploy"
+      accept_hostkey: yes
+      force: yes
+      version: release
+  - name: Install Dependencies
+    shell: "cd {{ home }}/app; python3 -m pip install -r requirements.txt"
+  - name: Start website.py
+    shell: "pkill python3; cd {{ home }}/app; nohup python3 website.py &"
+    poll: 0

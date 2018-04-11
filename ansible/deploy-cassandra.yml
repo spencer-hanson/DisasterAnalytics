@@ -1,0 +1,29 @@
+---
+- hosts: bigd_data
+  remote_user: ubuntu
+  vars:
+    home: /home/ubuntu
+  tasks:
+  - name: Copy Installer
+    copy:
+      src: cass_install.sh
+      dest: "{{ home }}/cass_install.sh"
+      mode: 0700
+  - name: Copy Config
+    copy:
+      src: cassandra.yaml
+      dest: "{{ home }}/cassandra.yaml"
+      mode: 0644
+  - name: Copy Config Installer
+    copy:
+      src: cass_config.py
+      dest: "{{ home }}/cass_config.py"
+      mode: 0700
+  - name: Install Cassandra
+    shell: "cd {{ home }}; ./cass_install.sh > {{ home }}/cass_install.log"
+  - name: Install Config
+    shell: "cd {{ home }}; python3 cass_config.py {{ ansible_default_ipv4.address }}; sudo cp new_cassandra.yaml /etc/cassandra/cassandra.yaml"
+  - name: Remove Old Config Data
+    shell: "cd /var/lib/cassandra/data; sudo rm -rf system"
+  - name: Restart the cassandra service
+    shell: "cd /; sudo service cassandra stop; sudo service cassandra start"

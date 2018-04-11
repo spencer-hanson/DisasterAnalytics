@@ -1,2 +1,4 @@
 searchtweets
 ansible
+searchtweets
+cassandra-driver

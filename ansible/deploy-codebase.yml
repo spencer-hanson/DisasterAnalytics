@@ -1,0 +1,19 @@
+---
+- hosts: bigd_code
+  remote_user: ubuntu
+  vars:
+    home: /home/ubuntu
+  tasks:
+  - name: Create SSH Directory
+    file:
+      path: "{{ home }}/.ssh"
+      state: directory
+  - name: Upload Private Key
+    copy:
+      src: da_deploy
+      dest: "{{ home }}/.ssh/da_deploy"
+  - name: Correct SSH deploy key permissions
+    file:
+      dest: "{{ home }}/.ssh/da_deploy"
+      mode: 0600
+- import_playbook: update-codebase.yml
