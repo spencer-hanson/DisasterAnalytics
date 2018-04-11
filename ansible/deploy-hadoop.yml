@@ -1,0 +1,12 @@
+---
+- hosts: bigd_hadoop
+  remote_user: ubuntu
+  vars:
+    home: /home/ubuntu
+  tasks:
+  - name: Copy Hadoop Install Files
+    copy:
+      src: hadoop/
+      dest: "/home/ubuntu"
+  - name: Run Install Script
+    shell: "cd /home/ubuntu; chmod u+x hadoop_install.sh; sudo ./hadoop_install.sh"
