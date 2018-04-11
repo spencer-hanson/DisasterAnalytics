@@ -1,0 +1,14 @@
+CREATE KEYSPACE "disasteranalytics" WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : '1'};
+
+
+
+
+CREATE TABLE disasteranalytics.tweets (
+   id UUID PRIMARY KEY,
+   time text,
+   txt text,
+   source text,
+   coordinates text);
+
+INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates)
+VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 'timehere', 'aa', 'aa', 'aa');
