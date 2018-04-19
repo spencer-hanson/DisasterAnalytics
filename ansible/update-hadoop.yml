@@ -1,0 +1,17 @@
+---
+- hosts: bigd_hadoop
+  vars:
+    home: /home/ubuntu
+  tasks:
+  - name: Copy Python Scipts
+    copy:
+      src: hadoop/scripts
+      dest: "{{ home }}"
+      mode: 0777
+  - name: Copy Util Scripts
+    copy:
+      src: hadoop/util
+      dest: "{{ home }}"
+      mode: 0700
+  - name: Move And Set Permissions
+    shell: "cd {{ home }}; sudo mv {{ home }}/scripts/*.py /tmp; sudo mv {{ home }}/util/*.sh /home/hduser; sudo chown -R hduser:hadoop /home/hduser"
