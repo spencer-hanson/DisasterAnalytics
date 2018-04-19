@@ -2,3 +2,5 @@ searchtweets
 ansible
 searchtweets
 cassandra-driver
+pendulum
+RandomWords
