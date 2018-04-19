@@ -15,7 +15,6 @@ for line in sys.stdin:
    
      # parse the input we got from mapper.py
     lat, Long, count = line.split(',')
-
     coordinates="%s,%s"%(lat,Long)
 
     try:
