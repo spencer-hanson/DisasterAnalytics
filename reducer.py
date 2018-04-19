@@ -12,21 +12,21 @@ current_count = 0
 for line in sys.stdin:
     # remove leading and trailing whitespace
     line = line.strip()
-    line=line.strip('(')
-    line=line.strip(')')
+   
      # parse the input we got from mapper.py
     lat, Long, count = line.split(',')
-    Long=Long.strip(')')
-    coordinates=(lat,Long)
+
+    coordinates="%s,%s"%(lat,Long)
 
     try:
     	count = int(count)
     except ValueError:
     	continue
 
-
+  
     if current_coord == coordinates:
     	current_count += count
+    	
     else:
     	    	# write result to STDOUT
     	if current_coord:
