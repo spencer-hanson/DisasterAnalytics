@@ -1,7 +1,6 @@
 from searchtweets import ResultStream, gen_rule_payload, load_credentials
 from searchtweets import collect_results
 from cassandra.cluster import Cluster
-from cassandra.query import SimpleStatement
 import uuid
 
 cluster = Cluster()
