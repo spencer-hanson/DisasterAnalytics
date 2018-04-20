@@ -1,10 +1,12 @@
 #!/bin/bash
-apt-get install -y default-jre default-jdk python-pip
-pip install "cassandra-driver"
+apt-get install -y default-jre default-jdk python3-pip
+
 addgroup hadoop
 adduser --disabled-password --gecos "" --ingroup hadoop hduser
 echo "$(cat hadoop_conf)" >> /home/hduser/.bashrc
 cd /home/ubuntu
+
+su - hduser -c "pip3 install cassandra-driver"
 
 ssh-keygen -f aa -t rsa -N ''
 mv /home/ubuntu/aa.pub /home/hduser/.ssh/id_rsa.pub
