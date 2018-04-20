@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 import json
 
-cluster = Cluster(["54.69.163.35"])
+cluster = Cluster(["172.31.18.195"])
 session = cluster.connect("disasteranalytics")
 # lat long
 data = session.execute("select coordinates from tweets limit 10")
