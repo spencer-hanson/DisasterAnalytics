@@ -4,6 +4,7 @@ from operator import itemgetter
 
 current_coord = None
 current_count = 0
+coordinates = ""
 
 # input comes from STDIN
 for line in sys.stdin:
