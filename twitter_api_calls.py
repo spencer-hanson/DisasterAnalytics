@@ -3,8 +3,8 @@ from searchtweets import collect_results
 from cassandra.cluster import Cluster
 import uuid
 
-cluster = Cluster()
-session = cluster.connect("disasteranalytics")
+# cluster = Cluster()
+# session = cluster.connect("disasteranalytics")
 
 
 #  Function call to load credentials
@@ -21,7 +21,7 @@ fromdate = "201802140000"
 todate = "201802140100"
 
 num_days = 2  # make this number of days you want to iterate over
-time_period = 24 * num_days
+time_period = 24 * num_days  # multiplier of 24 for hourly, 1440 for minute by minute
 new_from = int(fromdate)
 new_to = int(todate)
 
@@ -38,7 +38,7 @@ for i in range(0, time_period):
             new_to = new_to + 10000
             new_from = new_from - 2200
             new_to = new_to - 2200
-            print("hello")
+
     fromdate = str(new_from)
     todate = str(new_to)
 
@@ -51,14 +51,14 @@ for i in range(0, time_period):
 
     for tweet in tweets[0:num_results]:
         if str(tweet.geo_coordinates) != "None":
-            query = "INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates) VALUES ({}, $${}$$, $${}$$, $${}$$, $${}$$)".format(
-            uuid.uuid4(),
-            str(tweet.created_at_datetime),
-            str(tweet.generator.get("name")),
-            str(tweet.all_text),
-            str(tweet.geo_coordinates)
-        )
-        session.execute(query)
+        #     query = "INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates) VALUES ({}, $${}$$, $${}$$, $${}$$, $${}$$)".format(
+        #     uuid.uuid4(),
+        #     str(tweet.created_at_datetime),
+        #     str(tweet.generator.get("name")),
+        #     str(tweet.all_text),
+        #     str(tweet.geo_coordinates)
+        # )
+        # session.execute(query)
 
             print(tweet.all_text, '\n', "Time: ", tweet.created_at_datetime, '\n', "Source:", tweet.generator.get("name"), '\n',
                   "geo coordinates: ", tweet.geo_coordinates, '\n')
