@@ -4,8 +4,8 @@ from cassandra.cluster import Cluster
 from cassandra.query import SimpleStatement
 import uuid
 
-# cluster = Cluster()
-# session = cluster.connect("disasteranalytics")
+cluster = Cluster()
+session = cluster.connect("disasteranalytics")
 
 
 #  Function call to load credentials
@@ -18,13 +18,14 @@ num_results = 10  # specify desired query size
 
 #  Specify time period  year(yyyy) - month(mm) - day(dd) - time(hhmm)
 #  For using the for loop to iterate through time period, keep date windows 1 hour apart
-fromdate = "201802140000"
-todate = "201802140100"
+fromdate = "201802141200"
+todate = "201802141300"
 
-num_days = 2  # make this number of days you want to iterate over
+num_days = 1  # make this number of days you want to iterate over
 time_period = 24 * num_days  # multiplier of 24 for hourly, 1440 for minute by minute
 new_from = int(fromdate)
 new_to = int(todate)
+tweet_count = 0
 
 for i in range(0, time_period):
     if i != 0:
@@ -44,7 +45,7 @@ for i in range(0, time_period):
     todate = str(new_to)
 
     rule = gen_rule_payload(search_query, from_date=fromdate, to_date=todate, results_per_call=num_results)
-    print(rule)
+    #print(rule)
 
     tweets = collect_results(rule, max_results=num_results, result_stream_args=enterprise_search_args)
 
@@ -52,14 +53,16 @@ for i in range(0, time_period):
 
     for tweet in tweets[0:num_results]:
         if str(tweet.geo_coordinates) != "None":
-        #     query = "INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates) VALUES ({}, $${}$$, $${}$$, $${}$$, $${}$$)".format(
-        #     uuid.uuid4(),
-        #     str(tweet.created_at_datetime),
-        #     str(tweet.generator.get("name")),
-        #     str(tweet.all_text),
-        #     str(tweet.geo_coordinates)
-        # )
-        # session.execute(query)
+            tweet_count += 1
+            query = "INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates) VALUES ({}, $${}$$, $${}$$, $${}$$, $${}$$)".format(
+            uuid.uuid4(),
+            str(tweet.created_at_datetime),
+            str(tweet.generator.get("name")),
+            str(tweet.all_text),
+            str(tweet.geo_coordinates)
+        )
+        session.execute(query)
 
             print(tweet.all_text, '\n', "Time: ", tweet.created_at_datetime, '\n', "Source:", tweet.generator.get("name"), '\n',
                   "geo coordinates: ", tweet.geo_coordinates, '\n')
+print("The Number of Tweets Containing Geo Coordinates Collected was:", tweet_count)
