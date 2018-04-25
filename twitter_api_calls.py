@@ -4,8 +4,8 @@ from cassandra.cluster import Cluster
 from cassandra.query import SimpleStatement
 import uuid
 
-cluster = Cluster()
-session = cluster.connect("disasteranalytics")
+# cluster = Cluster()
+# session = cluster.connect("disasteranalytics")
 
 
 #  Function call to load credentials
@@ -54,15 +54,14 @@ for i in range(0, time_period):
     for tweet in tweets[0:num_results]:
         if str(tweet.geo_coordinates) != "None":
             tweet_count += 1
-            query = "INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates) VALUES ({}, $${}$$, $${}$$, $${}$$, $${}$$)".format(
-            uuid.uuid4(),
-            str(tweet.created_at_datetime),
-            str(tweet.generator.get("name")),
-            str(tweet.all_text),
-            str(tweet.geo_coordinates)
-        )
-        session.execute(query)
-
+            # query = "INSERT INTO disasteranalytics.tweets (id, time, source, txt, coordinates) VALUES ({}, $${}$$, $${}$$, $${}$$, $${}$$)".format(
+            #     uuid.uuid4(),
+            #     str(tweet.created_at_datetime),
+            #     str(tweet.generator.get("name")),
+            #     str(tweet.all_text),
+            #     str(tweet.geo_coordinates)
+            # )
+            # session.execute(query)
             print(tweet.all_text, '\n', "Time: ", tweet.created_at_datetime, '\n', "Source:", tweet.generator.get("name"), '\n',
                   "geo coordinates: ", tweet.geo_coordinates, '\n')
 print("The Number of Tweets Containing Geo Coordinates Collected was:", tweet_count)
