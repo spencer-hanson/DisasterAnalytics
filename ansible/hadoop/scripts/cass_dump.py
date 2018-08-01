@@ -11,5 +11,5 @@ with open("data.txt", "w") as f:
         if counter % 1000 == 0:
             print(counter)
         counter = counter + 1
-        coords = json.loads(row.coordinates)
+        coords = json.loads(row.coordinates.replace("\'", "\""))
         f.write("{} {}\n".format(coords["latitude"], coords["longitude"]))
