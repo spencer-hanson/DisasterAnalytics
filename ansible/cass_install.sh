@@ -10,3 +10,4 @@ sudo mkdir /opt/jre
 sudo tar -zxf jre.tar.gz -C /opt/jre
 
 sudo update-alternatives --install /usr/bin/java java /opt/jre/jre1.8.0_152/bin/java 2000
+w
